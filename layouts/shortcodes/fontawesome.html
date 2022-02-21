@@ -1,0 +1,4 @@
+<span class="inline-svg">
+  {{- $fname:=print "/static/icons/" ( .Get 0 ) ".svg" -}}
+  {{ $fname | readFile | safeHTML }}
+</span>

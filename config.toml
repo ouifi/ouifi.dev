@@ -7,6 +7,7 @@ theme = "terminal"
   author = 'Ouifi'
   themeColor = "blue"
   readingTime = true
+  custom_css = ["css/custom.css"]
 
 [languages]
   [languages.en]

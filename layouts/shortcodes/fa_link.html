@@ -1,0 +1,6 @@
+<a {{ with .Get 1 }} href="{{ . }}"{{ end }} style="text-decoration: none;">
+    <span class="inline-svg">
+        {{- $fname:=print "/static/icons/" ( .Get 0 ) ".svg" -}}
+        {{ $fname | readFile | safeHTML }}
+    </span>
+</a>
