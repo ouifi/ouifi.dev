@@ -15,9 +15,8 @@ WOW! My own website! That is kind of crazy. I am reaching out over the vast geog
 
 # Where to find me
 
-[GitHub](https://www.github.com/ouifi)
-
-[E-Mail](mailto:inquiries@ouifi.dev)
+{{< fa_link github "https://www.github.com/ouifi" >}} 
+{{< fa_link email "mailto:inquiries@ouifi.dev" >}}
 
 # My Stack
 
