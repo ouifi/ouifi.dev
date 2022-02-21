@@ -3,8 +3,13 @@ title: "What is a Server?"
 date: 2022-02-20
 draft: true
 Toc: true
-description: "An exploration of the modern word \"server\". Learn why we use this word, its origins, and why it confuses. Approachable for the layperson but hopefully instills further curiosity in the technical mind. "
+description: "An exploration of the modern word \"server\". Learn why we use this word, its origins, and why it confuses. Approachable for the layperson but hopefully instills further curiosity in the technical mind."
+tags: 
+  - tech
+  - language
 ---
+
+{{% draft_message %}}
 
 # What is a server?
 
@@ -36,7 +41,7 @@ Any active HTTP server code, no matter what hardware it is running on, could be 
 
 If you want to try this yourself and you have python installed on your computer, run this in your command line of choice. 
 
-```
+```bash
 python3 -m http.server 8000
 ```
 
