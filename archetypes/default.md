@@ -1,0 +1,6 @@
+---
+title: "{{ replace .Name "-" " " | title }}"
+date: {{ .Date }}
+draft: true
+description: "A brand new nugg...."
+---

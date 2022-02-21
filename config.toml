@@ -1,0 +1,28 @@
+baseURL = 'https://ouifi.dev/'
+languageCode = 'en-us'
+title = 'Ouifi.Dev'
+theme = "terminal"
+
+[params]
+  author = 'Ouifi'
+  description = 'Just another developer blog'
+  themeColor = "blue"
+  readingTime = true
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    title = "OUIFI.DEV"
+    subtitle = "A blog on technical topics"
+  
+  [languages.en.params.logo]
+      logoText = "OUIFI.DEV"
+
+  [languages.en.menu]
+    [[languages.en.menu.main]]
+      identifier = "about"
+      name = "About"
+      url = "/about"
+
+[logo]
+  logoText = "OUIFI.DEV"
