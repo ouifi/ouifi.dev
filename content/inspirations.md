@@ -20,6 +20,8 @@ Everyone has teachers which influence them on their educational journey. Sometim
 - Martin Kleppman
   - [Designing Data-Intensive Applications](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/)
 - [The Cherno](https://www.youtube.com/channel/UCQ-W1KE9EYfdxhL6S4twUNw)
+- [Explained from First Principles](https://explained-from-first-principles.com/)
+
 
 # Useful sites
 
