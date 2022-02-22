@@ -1,7 +1,6 @@
 ---
 title: "About"
-date: 2022-02-20
-draft: true
+description: "The about page for ouifi.dev. Provides information on projects, contact information, and preferred technologies."
 ---
 
 # Intro

@@ -1,7 +1,5 @@
 ---
 title: "Inspirations"
-date: 2022-02-20
-draft: true
 description: "The current set of online content creators I found influential, educational, or otherwise important to my growth as a software developer"
 ---
 
