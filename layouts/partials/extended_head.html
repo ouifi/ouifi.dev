@@ -2,5 +2,7 @@
     <link rel="stylesheet" href="{{ . | absURL }}">
 {{- end }}
 <!-- Cloudflare Web Analytics -->
-<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "{{ .Site.Params.CLOUDFLARETOKEN }}"}'></script>
+{{ with .Site.Params.CLOUDFLARETOKEN }}
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "{{ . }}"}'></script>
+{{end}}
 <!-- End Cloudflare Web Analytics -->
