@@ -8,6 +8,7 @@ theme = "terminal"
   themeColor = "blue"
   readingTime = true
   custom_css = ["css/custom.css"]
+  centerTheme = true
 
 [languages]
   [languages.en]
