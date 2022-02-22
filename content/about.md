@@ -1,9 +1,8 @@
 ---
 title: "About"
+readingTime: false
 description: "The about page for ouifi.dev. Provides information on projects, contact information, and preferred technologies."
 ---
-
-# Intro
 
 WOW! My own website! That is kind of crazy. I am reaching out over the vast geographical distance between us, covering perhaps thousands of miles to communicate these silly ideas with you. 
 
