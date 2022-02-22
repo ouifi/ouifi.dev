@@ -9,3 +9,8 @@
 .inline-svg svg {
     fill: var(--accent)
 }
+
+li a {
+    font-size: large;
+    padding: 2rem 2rem 2rem 0; /* Dont pad the left side with the bullet */
+}

@@ -2,6 +2,8 @@ baseURL = "/"
 languageCode = 'en-us'
 title = 'Ouifi.Dev'
 theme = "terminal"
+enableGitInfo = true
+enableRobotsTXT = true
 
 [params]
   author = 'Ouifi'
