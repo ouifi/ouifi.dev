@@ -11,6 +11,18 @@ git submodule init
 git submodule update
 ```
 
+# To run locally
+
+```
+hugo run server -D
+```
+
+# To build static files
+
+```
+hugo -D
+```
+
 # License
 
 Any written content is licensed under Creative Commons By Attribution 4.0. 
