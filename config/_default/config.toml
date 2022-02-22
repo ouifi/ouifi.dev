@@ -1,4 +1,3 @@
-baseURL = '/'
 languageCode = 'en-us'
 title = 'Ouifi.Dev'
 theme = "terminal"
@@ -9,6 +8,7 @@ theme = "terminal"
   readingTime = true
   custom_css = ["css/custom.css"]
   centerTheme = true
+  showLastUpdated = true
 
 [languages]
   [languages.en]
