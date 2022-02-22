@@ -7,6 +7,11 @@ description: "An exploration of the modern word \"server\". Learn why we use thi
 tags: 
   - tech
   - language
+keywords:
+  - server
+  - cloud
+  - virtual machine
+  - client
 ---
 
 {{% draft_message %}}
@@ -36,6 +41,9 @@ These physical servers are not all that different from the computer with which y
 This hardware-centric definition is the most useful one. From here, we have context for definitions that came later with additional technological advancement. 
 
 ## The server as a software
+
+{{< figure src="images/software1.png" title="Software Server" >}}
+
 Now let us try the full other end of the spectrum. I will try to keep this section approachable for a broad audience, but I may dip into software terminology unfamiliar to a non-technical reader.
 
 Recall earlier that even in the inherently hardware-oriented usage of a server, there was still a caveat that the server was running software to serve clients. These softwares are also commonly referred to as servers. You may have heard of an HTTP server. This is a piece of software which can communicate over a network (serve) with a client and exchange data using the HTTP protocol. 
@@ -45,10 +53,14 @@ Any active HTTP server software, no matter the hardware it is running on, could 
 If you want to try this yourself and you have python installed on your computer, run this in your command line of choice. 
 
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 8001
 ```
 
-Then open your browser to point at `http://localhost:8000`. Your computer is a server! ... and the client. 
+Then open your browser to point at `http://localhost:8001`. Your computer is a server! ... and the client. 
+
+This looks like the next figure.
+
+{{< figure src="images/software2.png" title="Software Server" >}}
 
 Software servers comprise many common software we use every day. Email, Files, Video Game, Printing, Media, Database, Sound, Proxy, Communicatons. These are all examples of Software Servers. 
 
@@ -58,9 +70,7 @@ Living somewhere in the middle of hardware and software are Virtual Servers. Als
 
 Virtual Machines, being fully featured operating systems, have all the features of physical server boxes, while having the advantage of being software defined. For example, to increase the size and capability of a virtual server, you can simply modify the settings[^2]. 
 
-Effectively implemented, it should be completely transparent to the end user what kind of server they are accessing. This is a personal judgment, but I would say that this definition of "server" is the most accurate one in modern parlance. 
-
-
+Effectively implemented, it should be completely opaque to the end user what kind of server they are accessing. I would say that this use of "server" is the most commonly intended definition in modern tech parlance. 
 
 
 [^1]: The word "virtual" in computer science almost always means a physical thing being emulated by software. 

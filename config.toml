@@ -23,6 +23,10 @@ theme = "terminal"
       identifier = "about"
       name = "About"
       url = "/about"
+    [[languages.en.menu.main]]
+      identifier = "inspirations"
+      name = "Inspirations"
+      url = "/inspirations"
 
 [logo]
   logoText = "OUIFI.DEV"
