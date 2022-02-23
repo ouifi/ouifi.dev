@@ -7,11 +7,8 @@ tags:
   - git
   - ssh
 Toc: true
-draft: true
 description: "A guide on how to manage multiple git identities."
 ---
-
-{{% draft_message %}}
 
 # Managing Multiple Git Identities
 
