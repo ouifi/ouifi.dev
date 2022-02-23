@@ -14,7 +14,7 @@ git submodule update
 # To run locally
 
 ```
-hugo run server -D
+hugo run server -DEF
 ```
 
 # To build static files

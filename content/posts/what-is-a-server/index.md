@@ -1,6 +1,7 @@
 ---
 title: "What is a Server?"
-date: 2022-02-20
+date: "2022-02-20"
+publishDate: "2022-02-20"
 Toc: true
 description: "An exploration of the modern word \"server\". Learn why we use this word, its origins, and why it confuses. Approachable for the layperson but hopefully instills further curiosity in the technical mind."
 tags: 
