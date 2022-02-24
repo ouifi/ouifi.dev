@@ -18,7 +18,7 @@ keywords:
 
 ## Intro
 
-My wife, who was a Art History major, loves to ask me technology questions. I enjoy the exercise of trying to [ELI5](www.reddit.com/r/eli5) something to her, and I think it makes me a better technologist. If I can explain a technology to someone with basically no experience, then it only gets easier to explain it to anyone with some experience. 
+My wife, who was a Art History major, loves to ask me technology questions. I enjoy the exercise of trying to [ELI5](https://www.reddit.com/r/explainlikeimfive) something to her, and I think it makes me a better technologist. If I can explain a technology to someone with basically no experience, then it only gets easier to explain it to anyone with some experience. 
 
 What is a server? I don't think this question gets asked often enough by junior developers. The word server has become so commonly used in the software development field as to become basically a non-word with no actual meaning. I also want to demystify it. There is nothing about a server which cannot (or should not) be understood by every person working with computers.
 

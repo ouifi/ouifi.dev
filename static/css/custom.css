@@ -12,5 +12,5 @@
 
 li a {
     font-size: large;
-    padding: 2rem 2rem 2rem 0; /* Dont pad the left side with the bullet */
+    padding: 1rem 1rem 1rem 0; /* Dont pad the left side with the bullet */
 }
