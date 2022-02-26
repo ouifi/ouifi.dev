@@ -23,6 +23,14 @@ hugo run server -DEF
 hugo -D
 ```
 
+# Future Topics:
+- [X] What is a server?
+- [X] Identity management in git
+- [ ] What makes a good primary key?
+- [ ] React Hooks for your API
+- [ ] Git bisect
+- [ ] Typescript with JSON Schema
+
 # License
 
 Any written content is licensed under Creative Commons By Attribution 4.0. 
