@@ -24,7 +24,7 @@ And that is how I found 10 articles with 10 opinions about selecting a primary k
 
 This was my first question. Almost every time I have written database/SQL code in my (short) career, I default to having an integer `id` field in every table. This forces the table to conform to 3rd normal form in most practical cases. Using an integer also means it is easy to tell (in general), the order in which rows were added. The table declaration also looks very clean. Using PostgreSQL:
 
-```
+```sql
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   name TEXT,
@@ -38,7 +38,7 @@ Nice and simple.[^2] So what is wrong with this? Nothing really. For simple use 
 
 Let's go back to our example of building a database-backed application, in the REST API. When building out the `/users/` endpoints, consider how we will reference our users. We have to include `id` somewhere in our request in order for the API to know which user we want. For sake of argument, let us say endpoints in this API use the `/users/:id` convention. 
 
-Herein lies the issue. By including an integer `id` field in the URL, we have just opened up an entire avenue for cyber attackers to extract data from our application. By enumerating `id` digits, (ex. 1, 2, 3, 4, 5...), and seeing which digits yield 404 (does not exist) vs 401 (not authorized to access this resource) response codes, they can estimate how many users our application has. Additionally, the digit itself also often is used to encode information about the privelege of the users.[^3] Some applications might use a convention that the highest privelege Admin user has user `id` 1 or 0, and that any user with `id` < 100 has elevated priveleges.
+Herein lies the issue. By including an integer `id` field in the URL, we have just opened up an entire avenue for cyber attackers to extract data from our application. By enumerating `id` digits, (ex. 1, 2, 3, 4, 5...), and seeing which digits yield 404 (does not exist) vs 401 (not authorized to access this resource) response codes, they can estimate how many users our application has. Additionally, the digit itself is often used to encode meaning about the privelege of the user.[^3] Some applications might use a convention that the highest privelege Admin user has user `id` 1 or 0, and that any user with `id` < 100 has elevated priveleges.
 
 Consider the case where an application has a silo'ed deployment strategy based on geographic location. As a simple example, let us say that our application has a unique deployment per continent. This helps decrease latency by making the application servers closer to the end user. But if each silo'ed deployment is truly independent, then the user `id` is also only unique within that silo! If we ever changed our deployment method, say by moving to a cloud-native architecture, we would have to reconsider a fundamental piece of our database. 
 
@@ -58,9 +58,11 @@ The golden standard for user `id` data type is UUID, which is an awesome set of 
 
 UUID is a great choice of data type for the user `id` field. Each generated one is globally unique, even across distributed systems. They are unordered, and so large as to be impractical to iterate over (attacker would have to count from 0 to 2^128). PostgreSQL (13+) and MySQL (5.7 and 8+) have native support for generating UUID and using it as a column data type (note that MySQL uses UUIDv1 and PostgreSQL uses UUIDv4).[^4] [^5] [^6] 
 
+UUID also has the benefit of not needing the database to be created. While PostgreSQL and MySQL support creating UUIDs, the UUID generation can be run anywhere! Contrast this to the `SERIAL` or sequence based primary key generation, which requires the database. This opens up additional possibilities in the architecture and decreases the coupling between the application API and the database. 
+
 ## When NOT to use UUID
 
-So what are the downsides of UUID? If its such a good choice of `id`, why not use it as the primary key column of all of my tables?
+So what are the downsides of UUID? If its such a good choice of `id`, why not use it as the primary key `id` column of all tables?
 
 As noted above, UUID values are 128-bit numbers. Integers (in most modern RDBMS) are 32-bit numbers. So each `id` uses 4x more storage. Using it for every table would have a significant impact on the system storage usage. Because it is such a large data type, comparing two UUID values adds overhead to common queries, such as `SELECT * WHERE id = ...`.
 
@@ -69,6 +71,29 @@ As noted above, UUID values are 128-bit numbers. Integers (in most modern RDBMS)
 While we have primarily reviewed integer and UUID as potential primary key data types, they are obviously not the only ones you could select when designing an application. Other choices, continuing to consider the `users` table in particular, include username, or email. These are poor choices for primary key. Locking users to never be able to change their username or email is poor UX. Allowing users to change their username/email if either is the primary key is poor design. Migrating from username/email to a new primary key is a nightmare waiting to happen. 
 
 ## Conclusion
+
+As a general rule of thumb, I would recommend using UUID for the user `id` column of any production-intended system. It may also be worthwile to use UUID for other sensitive `id` columns, or tables which could have > 2^64 rows. For other tables, there is not enough benefit to using UUID compared to the computational and storage overhead added.
+
+### Integer
+Pros:
+- smaller storage
+- ordered/sortable
+- simpler code
+Cons: 
+- may have implicit meaning
+- opens up avenues of cyber attack
+- does not scale as well in distributed systems
+- must use the db sequence
+
+### UUID
+Pros:
+- unique across distributed system
+- native support in modern db's
+- can be created outside the db
+Cons:
+- large size increases storage and slows down operations
+- slightly more complex to use in code (must represent as a string)
+
 
 [^1]: We are using PostgreSQL in this example
 [^2]: `SERIAL` is PostgreSQL shorthand for `INTEGER AUTO INCREMENT`, which tells the system to set up all the boiler plate sequences and sequence relations for you.
