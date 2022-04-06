@@ -20,7 +20,7 @@ Before getting into the meat of the discussion, let us first address why you are
 
 And that is how I found 10 articles with 10 opinions about selecting a primary key.
 
-## What's wrong with integer?
+## What is wrong with integer?
 
 This was my first question. Almost every time I have written database/SQL code in my (short) career, I default to having an integer `id` field in every table. This forces the table to conform to 3rd normal form in most practical cases. Using an integer also means it is easy to tell (in general), the order in which rows were added. The table declaration also looks very clean. Using PostgreSQL:
 
@@ -52,8 +52,27 @@ But when trying to bring an application to market as quickly as possible, select
 
 ## UUID
 
-The golden standard for user `id` data type is UUID, which is an awesome set of algorithms which allow you to generate universally unique 128-bit numbers. 
+The golden standard for user `id` data type is UUID, which is an awesome set of algorithms which allow you to generate universally unique 128-bit numbers. These algorithms use information like the timestamp, random number generators, network mac address, and more to generate these numbers. Here is what it looks like.
+
+> `6ba7b811-9dad-11d1-80b4-00c04fd430c8`
+
+UUID is a great choice of data type for the user `id` field. Each generated one is globally unique, even across distributed systems. They are unordered, and so large as to be impractical to iterate over (attacker would have to count from 0 to 2^128). PostgreSQL (13+) and MySQL (5.7 and 8+) have native support for generating UUID and using it as a column data type (note that MySQL uses UUIDv1 and PostgreSQL uses UUIDv4).[^4] [^5] [^6] 
+
+## When NOT to use UUID
+
+So what are the downsides of UUID? If its such a good choice of `id`, why not use it as the primary key column of all of my tables?
+
+As noted above, UUID values are 128-bit numbers. Integers (in most modern RDBMS) are 32-bit numbers. So each `id` uses 4x more storage. Using it for every table would have a significant impact on the system storage usage. Because it is such a large data type, comparing two UUID values adds overhead to common queries, such as `SELECT * WHERE id = ...`.
+
+## Other possible primary keys
+
+While we have primarily reviewed integer and UUID as potential primary key data types, they are obviously not the only ones you could select when designing an application. Other choices, continuing to consider the `users` table in particular, include username, or email. These are poor choices for primary key. Locking users to never be able to change their username or email is poor UX. Allowing users to change their username/email if either is the primary key is poor design. Migrating from username/email to a new primary key is a nightmare waiting to happen. 
+
+## Conclusion
 
 [^1]: We are using PostgreSQL in this example
 [^2]: `SERIAL` is PostgreSQL shorthand for `INTEGER AUTO INCREMENT`, which tells the system to set up all the boiler plate sequences and sequence relations for you.
 [^3]: In linux, user id 0 refers to the root user, who has full admin priveleges
+[^4]: MySQL5.7: https://dev.mysql.com/blog-archive/storing-uuid-values-in-mysql-tables/
+[^5]: MySQL8: https://dev.mysql.com/blog-archive/mysql-8-0-uuid-support/
+[^6]: PostgreSQL: https://www.postgresql.org/docs/current/functions-uuid.html
