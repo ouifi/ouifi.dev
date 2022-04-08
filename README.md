@@ -26,7 +26,7 @@ hugo -D
 # Future Topics:
 - [X] What is a server?
 - [X] Identity management in git
-- [ ] What makes a good primary key?
+- [X] What makes a good primary key?
 - [ ] React Hooks for your API
 - [ ] Git bisect
 - [ ] Typescript with JSON Schema
