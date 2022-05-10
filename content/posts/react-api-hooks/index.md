@@ -144,11 +144,11 @@ First, we will write a simple abstraction over the native Fetch Web API. At mini
 
 src/services/api.ts
 ```js
-export async function asJSON(res: Response) {
+async function asJSON(res: Response) {
   return res.json();
 }
 
-export async function isOk(res: Response) {
+async function isOk(res: Response) {
   if (res.ok) {
     return res;
   } else {
@@ -156,7 +156,7 @@ export async function isOk(res: Response) {
   }
 }
 
-export async function get(url: string | Request, opts?: Record<string, any>) {
+async function get(url: string | Request, opts?: Record<string, any>) {
   const trueOptions = {
     method: "GET",
     ...opts
@@ -165,7 +165,7 @@ export async function get(url: string | Request, opts?: Record<string, any>) {
   return fetch(url, trueOptions);
 }
 
-export async function post(url: string | Request, body: Record<string, any>, opts?: Record<string, any>) {
+async function post(url: string | Request, body: Record<string, any>, opts?: Record<string, any>) {
   const trueOptions = {
     headers: {
       "Content-Type": "application/json",
@@ -177,6 +177,12 @@ export async function post(url: string | Request, body: Record<string, any>, opt
 
   return fetch(url, trueOptions);
 }
+
+const API = {
+    get, post, isOk, asJSON
+}
+
+export default API;
 ```
 
 Let's look at two equivalent examples of using `fetch`. One with this abstraction, and one without.
@@ -249,6 +255,97 @@ export const useApi = () => {
   return { get, post }
 }
 ```
+
+Now we can access these API call methods from within React hooks like this:
+
+src/hooks/useExample1.ts
+```js
+import { useState, useEffect } from 'react';
+import { useApi } from 'hooks/useApi';
+import API from 'services/api';
+
+export const useExample = () => {
+  const { get } = useApi();
+
+  const [data, setData] = useState()
+
+  useEffect(
+    () => {
+      get("/api/example")
+        .then(API.isOk)
+        .then(API.asJSON)
+        .then(
+          (d) => {
+            setData(d);
+          }
+        );
+    },
+    [get]
+  );
+
+  return data;
+}
+```
+
+Now, let's add some practical stuff and use a concrete example
+
+src/hooks/useChuckNorris.ts
+```js
+import { useState, useEffect } from 'react';
+import { useApi } from 'hooks/useApi';
+import API from 'services/api';
+
+export type ChuckNorrisJoke = {
+  id: number;
+  joke: string
+}
+
+export const useChuckNorris = () => {
+  const { get } = useApi();
+
+  const [data, setData] = useState<ChuckNorrisJoke>()
+
+  useEffect(
+    () => {
+      get("http://api.icndb.com/jokes/random")
+        .then(API.isOk)
+        .then(API.asJSON)
+        .then(
+          (d) => {
+            setData(d.value);
+          }
+        );
+    },
+    [get]
+  );
+
+  return { joke: data };
+}
+```
+
+Then we consume this hook in a component
+
+src/components/Example1.tsx
+```js
+import React from 'react';
+import { useChuckNorris } from 'hooks/useChuckNorris';
+
+export const Example1 = () => {
+  const { joke } = useChuckNorris();
+
+  return <p>
+    {
+      joke && `Joke #${joke.id}: ${joke.joke}`
+    }
+  </p>
+}
+```
+
+Adding this component to `src/App.tsx`, we get this!
+
+{{< figure src="images/chucknorris.png" title="Free Chuck Norris Jokes!" >}}
+
+### 
 
 
 [^1]: https://tsh.io/state-of-frontend/#over-the-past-year-which-of-the-following-libraries-have-you-used-and-liked
