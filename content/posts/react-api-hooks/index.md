@@ -345,7 +345,11 @@ Adding this component to `src/App.tsx`, we get this!
 
 {{< figure src="images/chucknorris.png" title="Free Chuck Norris Jokes!" >}}
 
-### 
+I quite like this pattern for several reasons. 1) It is very little code, so it is not a large burden to write a hook for each model in your API. 2) The type of the API data is highly local to its retrieval. 3) Because they are hooks, they are composable! You could write a hook C, which is a composite hook of hooks/models A and B. But we can do even better.
+object
+### Auth Boilerplate
+
+I will not go into too much detail on the implementation of the authentication code. How you implement the specifics of authenticating to your API is completely up to you. Fill in the gaps where appropriate. This example is NOT production-ready, but its a skeleton of a good auth management component. 
 
 
 [^1]: https://tsh.io/state-of-frontend/#over-the-past-year-which-of-the-following-libraries-have-you-used-and-liked
