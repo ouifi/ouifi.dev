@@ -20,11 +20,11 @@ description: "Use React Hooks to drive how your frontend consumes an API."
 
 Hooks are all the rage now in React applications. Everyone knows how to build them and use them to encapsulate common logic and reuse it. But can this pattern be applied to our API calls? In addition, how can we ensure that a user whose authentication has expired (either their token is no longer valid or their session has ended) is properly shown the door? (So to speak.) 
 
-## Background
+The finished examples developed in this article are [available on my GitHub page](https://github.com/ouifi/react-api-hooks-examples).
+
+## Background and Problem Statement
 
 When I worked in my first role as a frontend developer, we basically had the worst possible way of managing API calls. I came into the project when it was about 1/3 done. A lot of the boilerplate code had been written, and since it was my first frontend job, I did not know any better to improve it. So I respected the solo senior developer's choices and moved on. This is basically how the code base was structured:
-
-## The Problem
 
 {{< code language="javascript" title="src/api/data.js" id="1" isCollapsed="false" >}}
 import axios from 'axios';
@@ -58,40 +58,8 @@ export default {
 }
 {{< /code >}}
 
-```js
-import axios from 'axios';
 
-async function getSavedItems(user_id) {
-  return axios.get("/savedItems?user_id=" + user_id)
-    .then(
-      (res) => {
-        return res.data;
-      }
-    )
-}
-
-// ...
-
-async function getListItems() {
-  return axios.get("/listItems")
-    .then(
-      (res) => {
-        return res.data;
-      }
-    )
-}
-
-// ...
-
-export default {
-  getSavedItems,
-  //...
-  getListItems,
-}
-```
-
-src/pages/savedItems.js
-```js
+{{< code language="javascript" title="src/pages/savedItems.js" id="2" isCollapsed="false" >}}
 import React from 'react';
 import { getSavedItems } from '@api/data';
 
@@ -132,7 +100,7 @@ class SavedItems extends React.PureComponent {
     </>
   }
 }
-```
+{{< /code >}}
 
 Yep. Class-based components and `axios`. To be fair, I think the Hooks API had only been released a few months before I joined the team. `Fetch` had been out and supported in Chrome since 2015 (Chrome v42), but was not commonly used. Axios definitely had (and continues to have [^1]) a large market share of client-server communications in JS[^2]. 
 
@@ -146,8 +114,7 @@ Writing the boilerplate for API calls and user app authentication all in one car
 
 First, we will write a simple abstraction over the native Fetch Web API. At minimum, lets implement GET, POST, and a couple of helper methods. 
 
-src/services/api.ts
-```js
+{{< code language="typescript" title="src/services/api.ts" id="3" isCollapsed="false" >}}
 async function asJSON(res: Response) {
   return res.json();
 }
@@ -184,10 +151,10 @@ async function post(url: string | Request, body: Record<string, any>, opts?: Rec
 
 const API = {
     get, post, isOk, asJSON
-}
+};
 
 export default API;
-```
+{{< /code >}}
 
 Let's look at two equivalent examples of using `fetch`. One with this abstraction, and one without.
 
@@ -225,7 +192,7 @@ API.get("/api/data")
     (data) => {
       console.log(data);
     }
-  )
+  );
 ```
 
 \* Chef's Kiss \*
@@ -236,8 +203,7 @@ Now we have a terse but effective way to write API requests in our application. 
 
 This boilerplate code does not yet serve a purpose in and of itself, but it will become clear later why we needed it. 
 
-src/hooks/useApi.ts
-```js
+{{< code language="typescript" title="src/hooks/useApi.ts" id="1" isCollapsed="false" >}}
 import { useCallback } from 'react';
 import API from 'services/api';
 
@@ -258,12 +224,12 @@ export const useApi = () => {
 
   return { get, post }
 }
-```
+{{< /code >}}
 
 Now we can access these API call methods from within React hooks like this:
 
 src/hooks/useExample1.ts
-```js
+{{< code language="typescript" title="src/hooks/useExample1.ts" id="4" isCollapsed="false" >}}
 import { useState, useEffect } from 'react';
 import { useApi } from 'hooks/useApi';
 import API from 'services/api';
@@ -289,12 +255,11 @@ export const useExample = () => {
 
   return data;
 }
-```
+{{< /code >}}
 
 Now, let's add some practical stuff and end up with a concrete example
 
-src/hooks/useChuckNorris.ts
-```js
+{{< code language="typescript" title="src/hooks/useChuckNorrisApi.js" id="5" isCollapsed="false" >}}
 import { useState, useEffect } from 'react';
 import { useApi } from 'hooks/useApi';
 import API from 'services/api';
@@ -304,7 +269,7 @@ export type ChuckNorrisJoke = {
   joke: string
 }
 
-export const useChuckNorris = () => {
+export const useChuckNorrisApi = () => {
   const { get } = useApi();
 
   const [data, setData] = useState<ChuckNorrisJoke>()
@@ -325,19 +290,18 @@ export const useChuckNorris = () => {
 
   return { joke: data };
 }
-```
+{{< /code >}}
 
-This hook is not fetching a protected API. The Internet Chuck Norris Database is an open, free API for anyone to use. 
+This hook is not fetching from a protected API. The Internet Chuck Norris Database is an open, free API for anyone to use. 
 
 We can consume this hook in a component
 
-src/components/Example1.tsx
-```js
+{{< code language="typescript" title="src/components/Example1.tsx" id="6" isCollapsed="false" >}}
 import React from 'react';
-import { useChuckNorris } from 'hooks/useChuckNorris';
+import { useChuckNorrisApi } from 'hooks/useChuckNorrisApi';
 
 export const Example1 = () => {
-  const { joke } = useChuckNorris();
+  const { joke } = useChuckNorrisApi();
 
   return <p>
     {
@@ -345,21 +309,19 @@ export const Example1 = () => {
     }
   </p>
 }
-```
+{{< /code >}}
 
 Adding this component to `src/App.tsx`, we get this!
 
 {{< figure src="images/chucknorris.png" title="Free Chuck Norris Jokes!" >}}
 
 I quite like this pattern for several reasons. 1) It is very little code, so it is not a large burden to write a hook for each model in your API. 2) The type of the API data is highly local to its retrieval. 3) Because they are hooks, they are composable! You could write a hook C, which is a composite hook of hooks/models A and B. But we can do even better.
-object
 
 ### Auth Boilerplate
 
 I will not go into too much detail on the implementation of the authentication code. How you implement the specifics of authenticating to your API is completely up to you. Fill in the gaps where appropriate. This example is NOT production-ready, but its a skeleton of a good auth management component. 
 
-src/context/AuthContext.tsx
-```js
+{{< code language="typescript" title="src/context/AuthContext.tsx" id="7" isCollapsed="false" >}}
 import React, { createContext, useState } from "react";
 
 const AuthContext = createContext({
@@ -389,14 +351,13 @@ export {
   AuthContext,
   AuthProvider
 }
-```
+{{< /code >}}
 
 In a more robust implementation, the `attemptSignIn` and `triggerSignOut` methods would include some kind of API call to the authentication endpoint to sign in and sign out. There would also be a little more complex status *about* the signed in user, like their name or email address.[^3]
 
 With this in place, we can apply some slight changes to our `App.tsx` file and get a page that starts to feel like something we could see in a real web app. 
 
-src/App.tsx
-```js
+{{< code language="typescript" title="src/App.tsx" id="8" isCollapsed="false" >}}
 import React, { useContext } from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -441,7 +402,7 @@ function App() {
 }
 
 export default App;
-```
+{{< /code >}}
 
 Running this code, we get:
 
@@ -457,8 +418,7 @@ There is one more thing we can do to really tie this all up. Consider what we ha
 
 Let's change that. Because we wrote this in a hook, we can consume other hooks in it. Let's build a new hook called `useProtectedApi`
 
-src/hooks/useProtectedApi.ts
-```js
+{{< code language="typescript" title="src/hooks/useProtectedApi.ts" id="9" isCollapsed="false" >}}
 import { useCallback, useContext } from 'react';
 import { AuthContext } from 'context/authContext';
 import API from 'services/api';
@@ -493,7 +453,7 @@ export const useProtectedApi = () => {
 
   return { get, post }
 }
-```
+{{< /code >}}
 
 And boom! Now we have, natively built-in to our React application logic, an Auto-Sign Out feature. Whenever the frontend makes an API call to an auth-protected endpoint, this hook will check for a 401 status and completely kick the user out, before they can do anything else. This is perfect for idle users, who have left the screen open. When they return to the app and load any new page that requires a protected API call, they will be shown the door.
 
@@ -503,11 +463,13 @@ I like this pattern because it encapsulates a lot of logic into relatively few l
 
 There are 3 exercises I will leave to the reader, in increasing levels of difficulty.
 
-1) Implement a more complex `useChuckNorrisApi` hook. According to the [documentation](http://www.icndb.com/api/), if you supply the `firstName` and `lastName` query parameters, you can insert the name of any character you want! Modify the application we built to take in user input and re-fetch the API with those dynamic parameters. How will you pass them to the `useChuckNorrisApi` hook? 
+1) Implement a more complex `useChuckNorrisApi` hook. According to the [documentation,](http://www.icndb.com/api/)if you supply the `firstName` and `lastName` parameters in the query string, you can insert the name of any character you want! Modify the application we built to take in user input and re-fetch the API with those dynamic parameters. How will you pass them to the `useChuckNorrisApi` hook? Consider adding a dependency array to the `useChuckNorrisApi` hook.
 
 2) Deduplicate these API calls. Consider a very long page with multiple address forms being rendered at once, each with a dropdown for the Country. If each of those dropdowns renders a `useCountryApi` hook, then the API end point will be re-fetched one time for each instance of the dropdown. Now you are wasting network resources and potentially slowing down your app waiting for all of these duplicate dropdowns to populate! Can we deduplicate them? Hint: consult the `react-query` package. 
 
 3) Flesh out and implement the `AuthContext`. Consider what logic you would include in the `attemptSignIn` and `triggerSignOut` methods. We initalized the `isAuthenticated` variable to always be `false`. Is this a good assumption? How do you determine if the user is signed in on page load?
+
+Again, the finished examples of everything we worked on here are [available on my GitHub page](https://github.com/ouifi/react-api-hooks-examples). Consider forking from there to work on the problems above!
 
 
 [^1]: https://tsh.io/state-of-frontend/#over-the-past-year-which-of-the-following-libraries-have-you-used-and-liked
