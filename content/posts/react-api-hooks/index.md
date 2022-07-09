@@ -203,7 +203,7 @@ Now we have a terse but effective way to write API requests in our application. 
 
 This boilerplate code does not yet serve a purpose in and of itself, but it will become clear later why we needed it. 
 
-{{< code language="typescript" title="src/hooks/useApi.ts" id="1" isCollapsed="false" >}}
+{{< code language="typescript" title="src/hooks/useApi.ts" id="4" isCollapsed="false" >}}
 import { useCallback } from 'react';
 import API from 'services/api';
 
@@ -228,8 +228,7 @@ export const useApi = () => {
 
 Now we can access these API call methods from within React hooks like this:
 
-src/hooks/useExample1.ts
-{{< code language="typescript" title="src/hooks/useExample1.ts" id="4" isCollapsed="false" >}}
+{{< code language="typescript" title="src/hooks/useExample1.ts" id="5" isCollapsed="false" >}}
 import { useState, useEffect } from 'react';
 import { useApi } from 'hooks/useApi';
 import API from 'services/api';
@@ -259,7 +258,7 @@ export const useExample = () => {
 
 Now, let's add some practical stuff and end up with a concrete example
 
-{{< code language="typescript" title="src/hooks/useChuckNorrisApi.js" id="5" isCollapsed="false" >}}
+{{< code language="typescript" title="src/hooks/useChuckNorrisApi.ts" id="6" isCollapsed="false" >}}
 import { useState, useEffect } from 'react';
 import { useApi } from 'hooks/useApi';
 import API from 'services/api';
@@ -296,7 +295,7 @@ This hook is not fetching from a protected API. The Internet Chuck Norris Databa
 
 We can consume this hook in a component
 
-{{< code language="typescript" title="src/components/Example1.tsx" id="6" isCollapsed="false" >}}
+{{< code language="typescript" title="src/components/Example1.tsx" id="7" isCollapsed="false" >}}
 import React from 'react';
 import { useChuckNorrisApi } from 'hooks/useChuckNorrisApi';
 
@@ -321,7 +320,7 @@ I quite like this pattern for several reasons. 1) It is very little code, so it 
 
 I will not go into too much detail on the implementation of the authentication code. How you implement the specifics of authenticating to your API is completely up to you. Fill in the gaps where appropriate. This example is NOT production-ready, but its a skeleton of a good auth management component. 
 
-{{< code language="typescript" title="src/context/AuthContext.tsx" id="7" isCollapsed="false" >}}
+{{< code language="typescript" title="src/context/AuthContext.tsx" id="8" isCollapsed="false" >}}
 import React, { createContext, useState } from "react";
 
 const AuthContext = createContext({
@@ -357,7 +356,7 @@ In a more robust implementation, the `attemptSignIn` and `triggerSignOut` method
 
 With this in place, we can apply some slight changes to our `App.tsx` file and get a page that starts to feel like something we could see in a real web app. 
 
-{{< code language="typescript" title="src/App.tsx" id="8" isCollapsed="false" >}}
+{{< code language="typescript" title="src/App.tsx" id="9" isCollapsed="false" >}}
 import React, { useContext } from 'react';
 import logo from './logo.svg';
 import './App.css';
