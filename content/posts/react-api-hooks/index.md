@@ -468,7 +468,7 @@ There are 3 exercises I will leave to the reader, in increasing levels of diffic
 
 3) Flesh out and implement the `AuthContext`. Consider what logic you would include in the `attemptSignIn` and `triggerSignOut` methods. We initalized the `isAuthenticated` variable to always be `false`. Is this a good assumption? How do you determine if the user is signed in on page load?
 
-Again, the finished examples of everything we worked on here are [available on my GitHub page](https://github.com/ouifi/react-api-hooks-examples). Consider forking from there to work on the problems above!
+Again, the finished examples of everything we worked on here are [available on my GitHub page](https://github.com/ouifi/react-api-hooks-examples). Consider forking from there to work on the problems above! If you want to see how I solved prompt number 2, checkout the [next article in this series!](/posts/expanded-react-api-hooks/)
 
 
 [^1]: https://tsh.io/state-of-frontend/#over-the-past-year-which-of-the-following-libraries-have-you-used-and-liked
