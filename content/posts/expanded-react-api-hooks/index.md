@@ -24,7 +24,7 @@ In this article, I want to address one of the exercises I left for the reader. I
 
 Just as before, the complete examples are [available on my GitHub page](https://github.com/ouifi/react-api-hooks-examples/tree/v2). This is just on a `v2` branch of the same solutions repo from the frst article.
 
-# Recap
+### Recap
 
 Let's review where we left off. 
 
