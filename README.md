@@ -19,7 +19,7 @@ hugo server -DEF
 
 # To build static files
 
-```
+``` 
 hugo -D
 ```
 
@@ -28,6 +28,7 @@ hugo -D
 - [X] Identity management in git
 - [X] What makes a good primary key?
 - [X] React Hooks for your API
+- [X] Expanded React Hooks for your API
 - [ ] Git bisect
 - [ ] Typescript with JSON Schema
 
