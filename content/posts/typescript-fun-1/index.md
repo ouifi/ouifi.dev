@@ -80,6 +80,7 @@ export const Example2 = () => {
 
 // But you cant reference by the variable name
 export const BadExample2 = () => {
+    // !! ERROR !!
     return <Component systemValue={SYSTEM_VALUES.value1} />;
 };
 ```
