@@ -181,6 +181,20 @@ const SYSTEM_VALUES: SYSTEM_VALUES_TYPE = SYSTEM_VALUES_LIST.reduce(
 
 And that is it! May future generations of developers curse you if you add this to your codebase. But to me, this is the briefest way of specifying the list of values, even if the type manipulation is a little excessive. 
 
+#### Extra
+
+You can also use this technique for more complex types, you just have to declare each object in the array as const. 
+
+```tsx
+const LIST = [
+    { id: 1, value: "value1" } as const,
+    { id: 2, value: "value2" } as const,
+] as const;
+
+type VALUE = LIST[number]["value"]; // equivalent to "value1" | "value2"
+type ID = LIST[number]["id"]; // equivalent to 1 | 2
+```
+
 ## Fibonacci in TypeScript
 
 ### Intro
