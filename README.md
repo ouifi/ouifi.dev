@@ -13,14 +13,20 @@ git submodule update
 
 # To run locally
 
-```
+```bash
 hugo server -DEF
 ```
 
 # To build static files
 
-``` 
+```bash
 hugo -D
+```
+
+# To add a new page
+
+```bash
+hugo new posts/post-title.md
 ```
 
 # Future Topics:
@@ -29,6 +35,8 @@ hugo -D
 - [X] What makes a good primary key?
 - [X] React Hooks for your API
 - [X] Expanded React Hooks for your API
+- [X] Git Ignore
+- [X] TypeScript type gymnastics
 - [ ] Git bisect
 - [ ] Typescript with JSON Schema
 
