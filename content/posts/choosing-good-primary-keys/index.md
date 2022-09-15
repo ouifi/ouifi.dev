@@ -90,6 +90,7 @@ Pros:
 - unique across distributed system
 - native support in modern db's
 - can be created outside the db
+
 Cons:
 - large size increases storage and slows down operations
 - slightly more complex to use in code (must represent as a string)
