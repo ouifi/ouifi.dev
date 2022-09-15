@@ -278,7 +278,7 @@ Wow. This has been a whirlwind of a post. I hope you enjoyed this journey as muc
 
 - [An introduction to programming in the TypeScript type system](https://www.zhenghao.io/posts/type-programming)
 - [Implementing Arithmetic in the TypeScript type system](https://itnext.io/implementing-arithmetic-within-typescripts-type-system-a1ef140a6f6f)
-- [Insane TypeScript gymnastics projects)[https://www.learningtypescript.com/articles/extreme-explorations-of-typescripts-type-system]
+- [Insane TypeScript gymnastics projects](https://www.learningtypescript.com/articles/extreme-explorations-of-typescripts-type-system)
 
 [^1]: https://github.com/codemix/ts-sql
 [^2]: https://github.com/ronami/HypeScript
