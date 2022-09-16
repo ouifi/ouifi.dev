@@ -1,6 +1,6 @@
 ---
 title: "Don't Ignore Git Ignore"
-date: "2022-07-30"
+date: "2022-08-15"
 publishDate: "2022-08-15"
 Toc: true
 tags:

@@ -75,10 +75,12 @@ While we have primarily reviewed integer and UUID as potential primary key data 
 As a general rule of thumb, I would recommend using UUID for the user `id` column of any production-intended system. It may also be worthwile to use UUID for other sensitive `id` columns, or tables which could have > 2^64 rows. For other tables, there is not enough benefit to using UUID compared to the computational and storage overhead added.
 
 ### Integer
+
 Pros:
 - smaller storage
 - ordered/sortable
 - simpler code
+
 Cons: 
 - may have implicit meaning
 - opens up avenues of cyber attack
@@ -86,10 +88,12 @@ Cons:
 - must use the db sequence
 
 ### UUID
+
 Pros:
 - unique across distributed system
 - native support in modern db's
 - can be created outside the db
+
 Cons:
 - large size increases storage and slows down operations
 - slightly more complex to use in code (must represent as a string)
