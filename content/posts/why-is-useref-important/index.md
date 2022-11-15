@@ -23,6 +23,8 @@ This article will not go into depth about how the `useRef` hook actually works. 
 
 Instead we will study how might one have tried to solve the same problems as `useRef` if it did not exist.
 
+As always, the examples are [available on my GitHub page.](https://github.com/ouifi/why-is-useref-important-examples)
+
 ## Correct `ref` usage
 
 `useRef` is important because each copy of the component gets its own ref, the same one every time.
