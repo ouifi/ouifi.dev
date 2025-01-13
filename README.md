@@ -38,6 +38,7 @@ hugo new posts/post-title.md
 - [X] Git Ignore
 - [X] TypeScript type gymnastics
 - [X] Why is `useRef` important?
+- [X] Lenses for building an EDH deck
 - [ ] Git bisect
 - [ ] Typescript with JSON Schema
 
